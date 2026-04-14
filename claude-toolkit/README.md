@@ -11,11 +11,11 @@ Copy the `agents/` and `skills/` directories into your project's `.claude/` fold
 
 ```bash
 # Clone this repo
-git clone https://github.com/your-username/claude-toolkit.git
+git clone https://github.com/gabrielfst30/super-gabriel-claude-toolkit.git
 
 # Copy into your project
-cp -r claude-toolkit/agents your-project/.claude/
-cp -r claude-toolkit/skills your-project/.claude/
+cp -r super-gabriel-claude-toolkit/agents your-project/.claude/
+cp -r super-gabriel-claude-toolkit/skills your-project/.claude/
 ```
 
 Your `.claude/` should look like:
