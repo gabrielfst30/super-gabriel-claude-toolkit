@@ -30,7 +30,8 @@ Your `.claude/` should look like:
 │   ├── typescript-error-fixer.md
 │   ├── prisma-migrator.md
 │   ├── natspec-writer.md
-│   └── natspec-validator.md
+│   ├── natspec-validator.md
+│   └── kanban-card-writer.md
 └── skills/
     ├── enhance/
     ├── planner/
@@ -38,7 +39,9 @@ Your `.claude/` should look like:
     ├── system-verifier/
     ├── create-skill-agent/
     ├── natspec/
-    └── prisma-postgresql-schema/
+    ├── prisma-postgresql-schema/
+    ├── kanban-task-planner/
+    └── run-kanban/
 ```
 
 **Requirement:** Create a `CLAUDE.md` at the project root. The `architecture-guardian`,
@@ -61,6 +64,7 @@ They run in isolated context with restricted tool access.
 | `prisma-migrator` | sonnet | Executes Prisma CLI commands (migrate, generate, db pull) |
 | `natspec-writer` | opus | Writes NatSpec-style docs for a single file in any language |
 | `natspec-validator` | haiku | Validates NatSpec completeness (read-only) |
+| `kanban-card-writer` | sonnet | Decomposes a task description into structured Kanban cards and writes the TASK-PLAN.md |
 
 ---
 
@@ -93,6 +97,15 @@ JavaScript, Solidity, Python, Rust, Go). Parallelizes by file, validates output.
 ### `/create-skill-agent [description]`
 Creates a new skill+agent combination from a workflow description. Follows the
 architecture formula in `skills/create-skill-agent/references/architecture-formula.md`.
+
+### `/kanban-task-planner [description]`
+Decomposes a free-text description into a `TASK-PLAN.md` with structured Kanban cards.
+Each card contains Description, Scope, Acceptance Criteria, Dependencies, and Checklist.
+Delegates decomposition to the `kanban-card-writer` agent.
+
+### `/run-kanban [task-name]`
+Executes a `TASK-PLAN.md` directly in the conversation — no subagents.
+Respects dependency groups, marks cards `[ ]` → `[-]` → `[x]`, and runs type-check at the end.
 
 ### `prisma-postgresql-schema` (keyword-triggered)
 Handles Prisma schema design, analysis, migration, and type generation.
