@@ -45,6 +45,7 @@ Map every deliverable from the description to one of these types:
 | `Component` | Reusable UI sub-components |
 | `Integration` | Cross-module wiring, middleware, auth, providers |
 | `Config` | Environment setup, constants, build config |
+| `Documentation` | Post-implementation summary written after all other cards are done |
 
 Adapt types to the project's actual stack and conventions.
 
@@ -56,6 +57,7 @@ Rules:
 - A card must never span unrelated modules or layers
 - Foundation cards (Schema, Types) always get lower IDs than dependent cards (API, UI)
 - Never mix database migrations with business logic in the same card
+- Always include a final `Documentation` card as the last card in the plan — it depends on all other cards and instructs the executor to write `IMPLEMENTATION-NOTES.md`
 
 Assign IDs sequentially: `CARD-001`, `CARD-002`, ..., ordered by execution sequence.
 
@@ -86,6 +88,7 @@ Write the complete file to the `Output file` path using this exact format:
 | CARD-003 | [title] | Service | [ ] | CARD-001, CARD-002 |
 | CARD-004 | [title] | API | [ ] | CARD-003 |
 | CARD-005 | [title] | UI | [ ] | CARD-004 |
+| CARD-006 | Implementation Notes | Documentation | [ ] | All cards |
 
 ## Execution Groups
 
@@ -101,6 +104,9 @@ Write the complete file to the `Output file` path using this exact format:
 
 ### Group 4 — After Group 3
 - CARD-005
+
+### Final Group — After all cards
+- CARD-006
 
 ---
 
@@ -132,6 +138,57 @@ Write the complete file to the `Output file` path using this exact format:
 ## CARD-002: [Title]
 
 [same structure]
+
+---
+
+## CARD-00N: Implementation Notes
+
+**Description:** Document everything that was implemented across all previous cards so that any developer can understand the delivered solution without reading the code.
+
+**Scope:**
+- `developer/tasks/[task-name]/IMPLEMENTATION-NOTES.md`
+
+**Acceptance Criteria:**
+- [ ] `IMPLEMENTATION-NOTES.md` exists at `developer/tasks/[task-name]/IMPLEMENTATION-NOTES.md`
+- [ ] Every card is summarised with what was created/modified
+- [ ] All new files and their responsibilities are listed
+- [ ] Any non-obvious decisions, trade-offs, or constraints are explained
+- [ ] A "How to test" section describes how a developer can verify the implementation manually
+
+**Dependencies:** All previous cards
+
+**Checklist:**
+- [ ] Create `developer/tasks/[task-name]/IMPLEMENTATION-NOTES.md` with the structure below:
+  ```
+  # [Task Name] — Implementation Notes
+
+  ## Overview
+  [2-3 sentences explaining what was built and why]
+
+  ## What Was Implemented
+
+  ### CARD-001: [Title]
+  - Files created/modified: [list]
+  - What it does: [short explanation]
+
+  ### CARD-002: [Title]
+  [same]
+
+  ...
+
+  ## File Map
+  | File | Role |
+  |------|------|
+  | [path] | [responsibility] |
+
+  ## Decisions & Trade-offs
+  - [Any non-obvious choice and the reason behind it]
+
+  ## How to Test
+  - [Step-by-step manual verification a developer can follow]
+  ```
+- [ ] Fill every section with accurate information based on what was actually implemented
+- [ ] Confirm the file was written successfully
 
 ---
 ```
