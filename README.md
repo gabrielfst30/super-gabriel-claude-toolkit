@@ -31,7 +31,8 @@ Your `.claude/` should look like:
 │   ├── prisma-migrator.md
 │   ├── natspec-writer.md
 │   ├── natspec-validator.md
-│   └── kanban-card-writer.md
+│   ├── kanban-card-writer.md
+│   └── codebase-mapper.md
 └── skills/
     ├── enhance/
     ├── planner/
@@ -42,7 +43,8 @@ Your `.claude/` should look like:
     ├── prisma-postgresql-schema/
     ├── kanban-task-planner/
     ├── run-kanban/
-    └── route-security-tester/
+    ├── route-security-tester/
+    └── explain-simply/
 ```
 
 **Requirement:** Create a `CLAUDE.md` at the project root. The `architecture-guardian`,
@@ -66,6 +68,7 @@ They run in isolated context with restricted tool access.
 | `natspec-writer` | opus | Writes NatSpec-style docs for a single file in any language |
 | `natspec-validator` | haiku | Validates NatSpec completeness (read-only) |
 | `kanban-card-writer` | sonnet | Decomposes a task description into structured Kanban cards and writes the TASK-PLAN.md |
+| `codebase-mapper` | sonnet | Maps code/project/architecture into structured facts (read-only) — research step for `/explain-simply` |
 
 ---
 
@@ -125,6 +128,19 @@ agents. Built-in guardrail: authorized targets only, rate limiting, and explicit
 confirmation for destructive verbs. Triggers on: `testar rotas`, `route testing`,
 `DAST`, `fuzzing`, `injection`, `SQLi`, `XSS`, `auth testing`, `insomnia`,
 `postman`, `openapi`, `swagger`, etc.
+
+### `/explain-simply [file | folder | topic]` (also keyword-triggered)
+Explains code, a project, or an architecture in plain language — no corporate
+jargon, objective, always with at least one Mermaid diagram. Delegates
+research to the `codebase-mapper` agent (kept out of the main context), then
+picks the right diagram type for what's being explained: `flowchart` for a
+sequential process/decision, `sequenceDiagram` for interaction between pieces
+over time, or a dependency graph for architecture/structure. Read-only by
+default — only writes a `.md` file if explicitly requested and confirmed.
+Triggers on: `explica esse código`, `explica esse projeto`, `como funciona`,
+`explica a arquitetura`, `quero entender`, `explica de forma simples`, `faz um
+diagrama disso`, `explain this code`, `explain the architecture`, `how does
+this work`.
 
 ---
 
