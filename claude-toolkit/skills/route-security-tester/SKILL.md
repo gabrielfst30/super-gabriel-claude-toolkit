@@ -15,7 +15,7 @@ description: >
   varredura de segurança, pentest da própria aplicação. Agnóstica de
   linguagem e framework: tudo específico do alvo é declarado em runtime.
 user-invocable: true
-argument-hint: "[modo: discovery|collections|functional|auth|injection|report] [--src <path>] [--url <baseUrl>]"
+argument-hint: "[modo: discovery|collections|functional|auth|injection|report] [--src <path>] [--url <baseUrl>] [--out <path>]"
 allowed-tools: Read, Write, Glob, Grep, Bash
 ---
 
@@ -62,6 +62,8 @@ Se qualquer entrada obrigatória (alvo, auth, autorização) estiver faltando,
   `OAuth`, ou `header custom`. Auth por wallet ou qualquer modelo incomum entra
   **apenas** como "esquema custom" configurável — jamais assumido por padrão.
 - **Autorização** — confirmação de que o alvo pode ser testado (guardrail #1).
+- **`--out <path>`** (opcional) — diretório onde o REPORT será salvo. Se
+  omitido, usa o default descrito no Modo 6.
 
 Colete o que faltar perguntando de forma objetiva antes de rodar o modo pedido.
 
@@ -199,6 +201,18 @@ Wordlists e tabela de sinais→veredito: **`references/injection-fuzzing.md`**.
 ## Modo 6 — REPORT
 
 Consolide os resultados dos modos rodados em **2 arquivos + 1 saída opcional**.
+
+**Sempre** salve os arquivos dentro de uma pasta dedicada, nunca soltos na raiz
+do projeto:
+
+- **Default:** `security-reports/<AAAA-MM-DD>-<alvo-slug>/` (criada via `mkdir -p`
+  antes de escrever os arquivos). `<alvo-slug>` deriva do `--url`/host testado
+  (ex.: `staging`, `localhost-3000`).
+- **Override:** se `--out <path>` foi informado, use esse diretório em vez do
+  default.
+- Se a pasta `security-reports/` for nova no repo, verifique se existe
+  `.gitignore` e sugira adicionar a entrada `security-reports/` (achados de
+  segurança não devem ir para o histórico do git).
 
 1. **`responses-table.md`** — tabela com colunas exatamente:
    `Rota | Método | Cenário | Status | Tempo(ms) | Tamanho | Observação`

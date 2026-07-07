@@ -3,6 +3,12 @@
 Consolide os modos rodados em **2 arquivos + 1 saída opcional**. Use os
 templates abaixo literalmente (colunas e ordem de seções são fixas).
 
+**Onde salvar:** sempre dentro de uma pasta dedicada, nunca soltos na raiz —
+`security-reports/<AAAA-MM-DD>-<alvo-slug>/` por default (`mkdir -p` antes de
+escrever), ou o diretório passado em `--out <path>` se informado. Sugira
+adicionar `security-reports/` ao `.gitignore` quando a pasta for criada pela
+primeira vez.
+
 ---
 
 ## 1. `responses-table.md`
