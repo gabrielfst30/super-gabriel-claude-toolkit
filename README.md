@@ -41,7 +41,8 @@ Your `.claude/` should look like:
     ├── natspec/
     ├── prisma-postgresql-schema/
     ├── kanban-task-planner/
-    └── run-kanban/
+    ├── run-kanban/
+    └── route-security-tester/
 ```
 
 **Requirement:** Create a `CLAUDE.md` at the project root. The `architecture-guardian`,
@@ -110,6 +111,20 @@ Respects dependency groups, marks cards `[ ]` → `[-]` → `[x]`, and runs type
 ### `prisma-postgresql-schema` (keyword-triggered)
 Handles Prisma schema design, analysis, migration, and type generation.
 Triggers on: `prisma`, `schema.prisma`, `prisma model`, `prisma migrate`, etc.
+
+### `/route-security-tester [mode]` (also keyword-triggered)
+Language- and framework-agnostic API route testing + light DAST against
+**authorized targets only**. Six independently-invokable modes: `discovery`
+(extract routes from source across Node/Python/Go/Spring/Rails/Laravel/.NET/
+actix + generic fallback), `collections` (export Insomnia/Postman v2.1/OpenAPI,
+on-demand), `functional` (exercise routes via curl — status/time/shape), `auth`
+(configurable auth & access-control matrix), `injection` (detection-level SQLi/
+NoSQLi/XSS/command-injection/path-traversal fuzzing), and `report` (consolidated
+table + notes + optional agent-ready block). Self-contained — no companion
+agents. Built-in guardrail: authorized targets only, rate limiting, and explicit
+confirmation for destructive verbs. Triggers on: `testar rotas`, `route testing`,
+`DAST`, `fuzzing`, `injection`, `SQLi`, `XSS`, `auth testing`, `insomnia`,
+`postman`, `openapi`, `swagger`, etc.
 
 ---
 
